@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { RootCoreModule } from '../../core.module';
 import { environment } from '../../../../environments/environment';
-
 import { AuthResponse, DecodedToken } from 'models';
 import { JWT_DECODE } from '../../consts';
 
