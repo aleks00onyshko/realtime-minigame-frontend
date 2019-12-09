@@ -2,12 +2,12 @@ import { ActionReducerMap } from '@ngrx/store';
 
 import { rootReducer } from './auth.reducer';
 
-import * as fromAuthModels from '../../models';
-import * as fromLogin from '../../components/login';
-import * as fromRegister from '../../components/register';
+import { AuthState } from '../../models';
+import { loginReducer } from '../../components/login';
+import { registerReducer } from '../../components/register';
 
-export const reducers: ActionReducerMap<fromAuthModels.AuthState> = {
+export const reducers: ActionReducerMap<AuthState> = {
   root: rootReducer,
-  login: fromLogin.loginReducer,
-  register: fromRegister.registerReducer
+  login: loginReducer,
+  register: registerReducer
 };

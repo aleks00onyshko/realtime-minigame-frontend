@@ -2,33 +2,33 @@ import { Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
-import * as fromCore from 'core';
-import * as fromModels from 'models';
-import * as fromLoginActions from '../../components/login/store/actions';
-import * as fromRegisterActions from '../../components/register/store/actions';
-import * as fromRootActions from '../actions';
+import { AuthService, NotificationsService } from 'core';
+import { IUser, DecodedToken } from 'models';
+import { loginSuccess } from '../../components/login/store/actions';
+import { registerSuccess } from '../../components/register/store/actions';
+import { setActualUser } from '../actions';
+import { Action } from '@ngrx/store/src/models';
 
 @Injectable()
 export class RootEffects {
-  authSuccess$ = createEffect(() =>
+  public authSuccess$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromLoginActions.loginSuccess, fromRegisterActions.registerSuccess),
+      ofType(loginSuccess, registerSuccess),
       switchMap(action => {
         try {
-          const decodedAccessToken = this.authService.decodeToken(action.tokens.accessToken);
+          const decodedToken: DecodedToken = this.authService.decodeToken(action.token);
 
-          this.authService.setAccessToken(action.tokens.accessToken);
-          this.authService.setRefreshToken(action.tokens.refreshToken);
+          this.authService.setToken(action.token);
 
-          const user: fromModels.IUser = {
-            email: decodedAccessToken.email,
-            username: decodedAccessToken.username,
-            id: decodedAccessToken._id
+          const user: IUser = {
+            email: decodedToken.email,
+            username: decodedToken.username,
+            id: decodedToken._id
           };
 
-          return of(fromRootActions.setActualUser({ user }));
+          return of(setActualUser({ user }));
         } catch (error) {
           this.notificationService.showNotification('Error occured');
         }
@@ -36,11 +36,11 @@ export class RootEffects {
     )
   );
 
-  setActualUser$ = createEffect(
+  public setActualUser$: Observable<boolean> = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromRootActions.setActualUser),
-        switchMap(action => this.router.navigate(['/home']))
+        ofType(setActualUser),
+        switchMap(() => this.router.navigate(['/home']))
       ),
     { dispatch: false }
   );
@@ -48,7 +48,7 @@ export class RootEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private authService: fromCore.AuthService,
-    private notificationService: fromCore.NotificationsService
+    private authService: AuthService,
+    private notificationService: NotificationsService
   ) {}
 }

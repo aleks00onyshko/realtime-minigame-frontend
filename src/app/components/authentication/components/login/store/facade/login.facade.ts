@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromLoginActions from '../actions';
-import * as fromLoginSelectors from '../selectors';
-import * as fromLoginModels from '../../models';
+import { login } from '../actions';
+import { getLoginPending } from '../selectors';
+import { LoginState } from '../../models';
 
 @Injectable({ providedIn: 'root' })
 export class LoginFacade {
-  pending$: Observable<boolean> = this.store.select(fromLoginSelectors.getLoginPending);
+  pending$: Observable<boolean> = this.store.select(getLoginPending);
 
-  constructor(private store: Store<fromLoginModels.LoginState>) {}
+  constructor(private store: Store<LoginState>) {}
 
   login(email: string, password: string): void {
-    this.store.dispatch(fromLoginActions.login({ email, password }));
+    this.store.dispatch(login({ email, password }));
   }
 }

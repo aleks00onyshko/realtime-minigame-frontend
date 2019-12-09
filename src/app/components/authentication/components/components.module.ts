@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import * as fromShared from 'shared';
-import * as fromRoot from './root';
+import { AppSharedModule } from 'shared';
+import { AuthenticationRootComponent } from './root';
 
-const COMPONENTS = [fromRoot.AuthenticationRootComponent];
+const COMPONENTS = [AuthenticationRootComponent];
 
 @NgModule({
-  imports: [RouterModule, fromShared.AppSharedModule],
+  imports: [RouterModule, AppSharedModule],
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS]
 })

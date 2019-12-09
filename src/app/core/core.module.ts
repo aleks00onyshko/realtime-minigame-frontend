@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import * as fromConts from './consts';
-import * as fromSharedModule from 'shared';
+import { jwtDecodeProvider } from './consts';
+import { AppSharedModule } from 'shared';
 
 @NgModule({
-  imports: [fromSharedModule.AppSharedModule, HttpClientModule],
-  providers: [fromConts.jwtDecodeProvider]
+  imports: [AppSharedModule, HttpClientModule],
+  providers: [jwtDecodeProvider]
 })
 export class RootCoreModule {}

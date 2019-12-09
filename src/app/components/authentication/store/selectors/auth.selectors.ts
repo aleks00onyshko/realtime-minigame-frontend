@@ -1,17 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromAuthModels from '../../models';
+import { AuthState } from '../../models';
 
-export const getAuthenticationState = createFeatureSelector<fromAuthModels.AuthState>('authentication');
+export const getAuthenticationState = createFeatureSelector<AuthState>('authentication');
 export const getRootState = createSelector(
   getAuthenticationState,
-  (state: fromAuthModels.AuthState) => state.root
+  (state: AuthState) => state.root
 );
 export const getRegisterState = createSelector(
   getAuthenticationState,
-  (state: fromAuthModels.AuthState) => state.register
+  (state: AuthState) => state.register
 );
 export const getLoginState = createSelector(
   getAuthenticationState,
-  (state: fromAuthModels.AuthState) => state.login
+  (state: AuthState) => state.login
 );

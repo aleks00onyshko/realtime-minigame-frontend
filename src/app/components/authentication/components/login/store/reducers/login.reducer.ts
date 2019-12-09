@@ -1,9 +1,9 @@
 import { createReducer, on, createSelector } from '@ngrx/store';
 
-import * as fromLoginModels from '../../models';
-import * as fromLoginActions from '../actions';
+import { LoginState } from '../../models';
+import { login, loginSuccess, loginFail } from '../actions';
 
-const initialState: fromLoginModels.LoginState = {
+const initialState: LoginState = {
   pending: false,
   email: null,
   password: null,
@@ -12,12 +12,12 @@ const initialState: fromLoginModels.LoginState = {
 
 export const loginReducer = createReducer(
   initialState,
-  on(fromLoginActions.login, (state, payload) => ({
+  on(login, (state, payload) => ({
     ...state,
     pending: true,
     email: payload.email,
     password: payload.password
   })),
-  on(fromLoginActions.loginSuccess, state => ({ ...state, pending: false })),
-  on(fromLoginActions.loginFail, (state, payload) => ({ ...state, pending: false, error: payload.error }))
+  on(loginSuccess, state => ({ ...state, pending: false })),
+  on(loginFail, (state, payload) => ({ ...state, pending: false, error: payload.error }))
 );

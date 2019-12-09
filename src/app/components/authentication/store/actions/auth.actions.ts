@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 
-import * as fromModels from 'models';
+import { IUser } from 'models';
 
-export const setActualUser = createAction('[Auth] Set actual user', props<{ user: fromModels.IUser }>());
+export const setActualUser = createAction('[Auth] Set actual user', props<{ user: IUser }>());

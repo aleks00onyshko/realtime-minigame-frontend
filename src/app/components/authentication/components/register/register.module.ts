@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import * as fromComponents from './components';
+import { RegisterComponentsModule, RegisterComponent } from './components';
 
 @NgModule({
-  imports: [fromComponents.RegisterComponentsModule],
-  exports: [fromComponents.RegisterComponentsModule]
+  imports: [RegisterComponentsModule],
+  exports: [RegisterComponentsModule]
 })
 export class RegisterModule {}

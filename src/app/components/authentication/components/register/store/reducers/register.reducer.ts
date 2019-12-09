@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as fromRegisterModels from '../../models';
-import * as fromRegisterActions from '../actions';
+import { RegisterState } from '../../models';
+import { register, registerSuccess, registerFail } from '../actions';
 
-const initialState: fromRegisterModels.RegisterState = {
+const initialState: RegisterState = {
   pending: false,
   email: null,
   username: null,
@@ -13,15 +13,15 @@ const initialState: fromRegisterModels.RegisterState = {
 
 export const registerReducer = createReducer(
   initialState,
-  on(fromRegisterActions.register, (state, payload) => ({
+  on(register, (state, payload) => ({
     ...state,
     pending: true,
     email: payload.email,
     username: payload.username,
     password: payload.password
   })),
-  on(fromRegisterActions.registerSuccess, state => ({ ...state, pending: false })),
-  on(fromRegisterActions.registerFail, (state, payload) => ({
+  on(registerSuccess, state => ({ ...state, pending: false })),
+  on(registerFail, (state, payload) => ({
     ...state,
     pending: false,
     error: payload.error

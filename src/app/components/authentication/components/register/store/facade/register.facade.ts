@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromRegisterModels from '../../models';
-import * as fromRegisterSelectors from '../selectors';
-import * as fromRegisterActions from '../actions';
+import { RegisterState } from '../../models';
+import { getRegisterPending } from '../selectors';
+import { register } from '../actions';
 
 @Injectable({ providedIn: 'root' })
 export class RegisterFacade {
-  pending$: Observable<boolean> = this.store.select(fromRegisterSelectors.getRegisterPending);
+  pending$: Observable<boolean> = this.store.select(getRegisterPending);
 
-  constructor(private store: Store<fromRegisterModels.RegisterState>) {}
+  constructor(private store: Store<RegisterState>) {}
 
   register(email: string, username: string, password: string): void {
-    this.store.dispatch(fromRegisterActions.register({ email, username, password }));
+    this.store.dispatch(register({ email, username, password }));
   }
 }

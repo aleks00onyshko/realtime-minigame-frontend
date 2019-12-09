@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import * as fromLoginComponents from './components';
+import { LoginComponentsModule } from './components';
 
 @NgModule({
-  imports: [fromLoginComponents.LoginComponentsModule],
-  exports: [fromLoginComponents.LoginComponentsModule]
+  imports: [LoginComponentsModule],
+  exports: [LoginComponentsModule]
 })
 export class LoginModule {}

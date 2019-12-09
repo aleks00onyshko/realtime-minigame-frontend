@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import * as fromRegisterStore from '../../store';
+import { RegisterFacade } from '../../store';
 
 @Component({
   selector: 'dp-register',
@@ -11,7 +11,7 @@ import * as fromRegisterStore from '../../store';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private registerFacade: fromRegisterStore.RegisterFacade) {}
+  constructor(private registerFacade: RegisterFacade) {}
 
   ngOnInit() {
     this.registerForm = new FormGroup({

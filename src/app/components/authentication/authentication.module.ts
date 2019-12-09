@@ -2,16 +2,11 @@ import { NgModule } from '@angular/core';
 
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 
-import * as fromCore from 'core';
-import * as fromAuthComponents from './components';
-import * as fromAuthStoreModule from './store';
+import { RootCoreModule } from 'core';
+import { AuthenticationComponentsModule } from './components';
+import { AuthenticationStoreModule } from './store';
 
 @NgModule({
-  imports: [
-    fromCore.RootCoreModule,
-    fromAuthComponents.AuthenticationComponentsModule,
-    fromAuthStoreModule.AuthenticationStoreModule,
-    AuthenticationRoutingModule
-  ]
+  imports: [RootCoreModule, AuthenticationComponentsModule, AuthenticationStoreModule, AuthenticationRoutingModule]
 })
 export class AuthenticationModule {}

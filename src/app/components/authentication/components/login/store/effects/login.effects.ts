@@ -3,19 +3,19 @@ import { exhaustMap, map, catchError, switchMap } from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 
-import * as fromCore from 'core';
-import * as fromModels from 'models';
-import * as fromLoginActions from '../actions';
+import { AuthResponse } from 'models';
+import { login, loginSuccess, loginFail } from '../actions';
+import { AuthService, NotificationsService } from 'core';
 
 @Injectable()
 export class LoginEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromLoginActions.login),
+      ofType(login),
       exhaustMap(action =>
         this.authService.login(action.email, action.password).pipe(
-          map((response: fromModels.EncodedTokens) => fromLoginActions.loginSuccess({ tokens: response })),
-          catchError(error => of(fromLoginActions.loginFail({ error })))
+          map((response: AuthResponse) => loginSuccess({ token: response.token })),
+          catchError(error => of(loginFail({ error })))
         )
       )
     )
@@ -24,7 +24,7 @@ export class LoginEffects {
   loginFail$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromLoginActions.loginFail),
+        ofType(loginFail),
         switchMap(action => {
           const errotMessage = action.error.error.message ? action.error.error.message : action.error.statusText;
           return of(this.notificationService.showNotification(errotMessage));
@@ -35,7 +35,7 @@ export class LoginEffects {
 
   constructor(
     private actions$: Actions,
-    private authService: fromCore.AuthService,
-    private notificationService: fromCore.NotificationsService
+    private authService: AuthService,
+    private notificationService: NotificationsService
   ) {}
 }

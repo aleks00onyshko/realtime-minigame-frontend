@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import * as fromRoot from './root';
-import * as fromShared from 'shared';
+import { RegisterComponent } from './root';
+import { AppSharedModule } from 'shared';
 
-const COMPONENTS = [fromRoot.RegisterComponent];
+const COMPONENTS = [RegisterComponent];
 
 @NgModule({
-  imports: [fromShared.AppSharedModule],
+  imports: [AppSharedModule],
   exports: [...COMPONENTS],
   declarations: [...COMPONENTS]
 })

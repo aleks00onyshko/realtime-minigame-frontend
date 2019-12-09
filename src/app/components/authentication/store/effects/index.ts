@@ -1,5 +1,5 @@
-import * as fromLoginStore from '../../components/login/store';
-import * as fromRegisterStore from '../../components/register/store';
-import * as fromRootEffects from './root.effects';
+import { LoginEffects } from '../../components/login/store';
+import { RegisterEffects } from '../../components/register/store';
+import { RootEffects } from './root.effects';
 
-export const effects = [fromLoginStore.LoginEffects, fromRegisterStore.RegisterEffects, fromRootEffects.RootEffects];
+export const effects = [LoginEffects, RegisterEffects, RootEffects];

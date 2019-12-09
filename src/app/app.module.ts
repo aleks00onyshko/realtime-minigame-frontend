@@ -8,17 +8,17 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 
-import * as fromRootStore from 'store';
-import * as fromComponents from './components';
+import { RootStoreModule, CustomSerializer } from 'store';
+import { RootComponentsModule, RootComponent } from './components';
 
 @NgModule({
   imports: [
     BrowserModule,
-    fromComponents.RootComponentsModule,
-    fromRootStore.RootStoreModule,
+    RootComponentsModule,
+    RootStoreModule,
     AppRoutingModule,
     StoreRouterConnectingModule.forRoot({
-      serializer: fromRootStore.CustomSerializer
+      serializer: CustomSerializer
     }),
     EffectsModule.forRoot([]),
     environment.production ? [] : StoreDevtoolsModule.instrument()
@@ -29,6 +29,6 @@ import * as fromComponents from './components';
       useValue: { duration: 2500, horizontalPosition: 'right', verticalPosition: 'top' }
     }
   ],
-  bootstrap: [fromComponents.RootComponent]
+  bootstrap: [RootComponent]
 })
 export class AppModule {}

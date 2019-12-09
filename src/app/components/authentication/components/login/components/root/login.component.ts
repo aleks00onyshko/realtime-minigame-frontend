@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import * as fromLoginFacade from '../../store/facade';
+import { LoginFacade } from '../../store/facade';
 
 @Component({
   selector: 'dp-login',
@@ -11,7 +11,7 @@ import * as fromLoginFacade from '../../store/facade';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private loginFacade: fromLoginFacade.LoginFacade) {}
+  constructor(private loginFacade: LoginFacade) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

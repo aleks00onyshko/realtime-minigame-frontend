@@ -1,29 +1,29 @@
 import { createSelector } from '@ngrx/store';
 
-import * as fromAuthSelectors from '../../../../store/selectors';
-import * as fromRegisterModels from '../../models';
+import { getRegisterState } from '../../../../store/selectors';
+import { RegisterState } from '../../models';
 
 export const getRegisterPending = createSelector(
-  fromAuthSelectors.getRegisterState,
-  (state: fromRegisterModels.RegisterState) => state.pending
+  getRegisterState,
+  (state: RegisterState) => state.pending
 );
 
 export const getRegisterEmail = createSelector(
-  fromAuthSelectors.getRegisterState,
-  (state: fromRegisterModels.RegisterState) => state.email
+  getRegisterState,
+  (state: RegisterState) => state.email
 );
 
 export const getRegisterUsername = createSelector(
-  fromAuthSelectors.getRegisterState,
-  (state: fromRegisterModels.RegisterState) => state.username
+  getRegisterState,
+  (state: RegisterState) => state.username
 );
 
 export const getRegisterPassword = createSelector(
-  fromAuthSelectors.getRegisterState,
-  (state: fromRegisterModels.RegisterState) => state.password
+  getRegisterState,
+  (state: RegisterState) => state.password
 );
 
 export const getRegisterErrorMessage = createSelector(
-  fromAuthSelectors.getRegisterState,
-  (state: fromRegisterModels.RegisterState) => state.error
+  getRegisterState,
+  (state: RegisterState) => state.error
 );

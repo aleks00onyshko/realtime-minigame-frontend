@@ -1,5 +1,5 @@
-import * as fromModels from 'models';
+import { IUser } from 'models';
 
 export interface RootState {
-  user: fromModels.IUser | null;
+  user: IUser | null;
 }

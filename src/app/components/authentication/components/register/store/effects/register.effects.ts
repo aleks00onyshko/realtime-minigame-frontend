@@ -3,32 +3,28 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, map, catchError, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import * as fromCore from 'core';
-import * as fromModels from 'models';
-import * as fromRegisterActions from '../actions';
-
-type RegisterResponse = {
-  token: string;
-};
+import { AuthService, NotificationsService } from 'core';
+import { register, registerSuccess, registerFail } from '../actions';
+import { AuthResponse } from 'models';
 
 @Injectable()
 export class RegisterEffects {
   register$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromRegisterActions.register),
+      ofType(register),
       exhaustMap(action =>
         this.authService
           .register(action.email, action.username, action.password)
-          .pipe(map((response: fromModels.EncodedTokens) => fromRegisterActions.registerSuccess({ tokens: response })))
+          .pipe(map((response: AuthResponse) => registerSuccess({ token: response.token })))
       ),
-      catchError(error => of(fromRegisterActions.registerFail({ error })))
+      catchError(error => of(registerFail({ error })))
     )
   );
 
   registerFail$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromRegisterActions.registerFail),
+        ofType(registerFail),
         switchMap(action => {
           const errotMessage = action.error.error.message ? action.error.error.message : action.error.statusText;
           return of(this.notificationService.showNotification(errotMessage));
@@ -39,7 +35,7 @@ export class RegisterEffects {
 
   constructor(
     private actions$: Actions,
-    private authService: fromCore.AuthService,
-    private notificationService: fromCore.NotificationsService
+    private authService: AuthService,
+    private notificationService: NotificationsService
   ) {}
 }
