@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './root';
 import { AppSharedModule } from 'shared';
@@ -6,7 +7,7 @@ import { AppSharedModule } from 'shared';
 const COMPONENTS = [LoginComponent];
 
 @NgModule({
-  imports: [AppSharedModule],
+  imports: [RouterModule, AppSharedModule],
   exports: [...COMPONENTS],
   declarations: [...COMPONENTS]
 })

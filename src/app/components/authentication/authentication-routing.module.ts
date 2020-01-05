@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent, LoginModule } from './components/login';
 import { RegisterComponent, RegisterModule } from './components/register';
 import { AuthenticationRootComponent } from './components/root/authentication-root.component';
+import { AuthGuard } from 'core';
 
 const authenticationRoutes: Routes = [
   {
@@ -14,7 +15,8 @@ const authenticationRoutes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
-    ]
+    ],
+    canActivate: [AuthGuard]
   }
 ];
 

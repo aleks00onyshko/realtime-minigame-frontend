@@ -1,15 +1,15 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { RootCoreModule } from '../../core.module';
 import { environment } from '../../../../environments/environment';
 import { AuthResponse, DecodedToken } from 'models';
-import { JWT_DECODE } from '../../consts';
 
 @Injectable({ providedIn: RootCoreModule })
 export class AuthService {
-  constructor(@Inject(JWT_DECODE) private jwtDecode: any, private http: HttpClient) {}
+  constructor(private jwtService: JwtHelperService, private http: HttpClient) {}
 
   public register(email: string, username: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${environment.apiUrl}/users/register`, {
@@ -23,8 +23,13 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${environment.apiUrl}/users/login`, { email, password });
   }
 
+  public isLoggedIn(): boolean {
+    const token = this.geToken();
+    return this.geToken() && this.decodeToken(token) && !this.jwtService.isTokenExpired(token);
+  }
+
   public decodeToken(token: string): DecodedToken {
-    return this.jwtDecode(token);
+    return this.jwtService.decodeToken(token);
   }
 
   public geToken(): string {
@@ -33,5 +38,9 @@ export class AuthService {
 
   public setToken(token: string): void {
     localStorage.setItem('token', token);
+  }
+
+  public logout(): void {
+    localStorage.removeItem('token');
   }
 }

@@ -7,6 +7,11 @@ import { AuthenticationComponentsModule } from './components';
 import { AuthenticationStoreModule } from './store';
 
 @NgModule({
-  imports: [RootCoreModule, AuthenticationComponentsModule, AuthenticationStoreModule, AuthenticationRoutingModule]
+  imports: [
+    RootCoreModule,
+    AuthenticationComponentsModule,
+    AuthenticationStoreModule,
+    AuthenticationRoutingModule
+  ]
 })
 export class AuthenticationModule {}

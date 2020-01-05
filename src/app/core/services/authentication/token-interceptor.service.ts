@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 
 import { RootCoreModule } from '../../core.module';
 
-import { AuthService } from 'core';
+import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: RootCoreModule
 })
-export class TokenInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
-  // intercept(req: HttpRequest<any>, next: HttpHandler){
-  //   const clonedRequest = req.clone({
-  //     setHeaders: {
-  //       authorization: this.authService.getToken()
-  //     }
-  //   })
-  // }
+  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.authService.isLoggedIn()) {
+      request.clone({
+        params: request.params.set('token', this.authService.geToken())
+      });
+    } else {
+      this.authService.logout();
+    }
+
+    return next.handle(request);
+  }
 }
