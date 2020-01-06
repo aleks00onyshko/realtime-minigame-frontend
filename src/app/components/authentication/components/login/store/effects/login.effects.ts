@@ -14,7 +14,12 @@ export class LoginEffects {
       ofType(login),
       exhaustMap(action =>
         this.authService.login(action.email, action.password).pipe(
-          map((response: AuthResponse) => loginSuccess({ token: response.token })),
+          map((response: AuthResponse) =>
+            loginSuccess({
+              token: response.token,
+              publicKey: response.publicKey
+            })
+          ),
           catchError(error => of(loginFail({ error })))
         )
       )
@@ -26,7 +31,9 @@ export class LoginEffects {
       this.actions$.pipe(
         ofType(loginFail),
         switchMap(action => {
-          const errotMessage = action.error.error.message ? action.error.error.message : action.error.statusText;
+          const errotMessage = action.error.error.message
+            ? action.error.error.message
+            : action.error.statusText;
           return of(this.notificationService.showNotification(errotMessage));
         })
       ),

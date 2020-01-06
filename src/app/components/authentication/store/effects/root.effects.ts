@@ -18,7 +18,7 @@ export class RootEffects {
       ofType(loginSuccess, registerSuccess),
       switchMap(action => {
         try {
-          const decodedToken: DecodedToken = this.authService.decodeToken(action.token);
+          const decodedToken: DecodedToken = this.authService.verifyToken(action.token, action.publicKey);
 
           this.authService.setToken(action.token);
 

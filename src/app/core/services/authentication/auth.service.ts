@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { verify } from 'jsonwebtoken';
 
 import { RootCoreModule } from '../../core.module';
 import { environment } from '../../../../environments/environment';
@@ -38,6 +39,10 @@ export class AuthService {
 
   public setToken(token: string): void {
     localStorage.setItem('token', token);
+  }
+
+  public verifyToken(token: string, publicKey: string): DecodedToken {
+    return verify(token, publicKey) as DecodedToken;
   }
 
   public logout(): void {

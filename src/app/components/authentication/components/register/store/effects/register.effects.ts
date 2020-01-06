@@ -13,9 +13,14 @@ export class RegisterEffects {
     this.actions$.pipe(
       ofType(register),
       exhaustMap(action =>
-        this.authService
-          .register(action.email, action.username, action.password)
-          .pipe(map((response: AuthResponse) => registerSuccess({ token: response.token })))
+        this.authService.register(action.email, action.username, action.password).pipe(
+          map((response: AuthResponse) =>
+            registerSuccess({
+              token: response.token,
+              publicKey: response.publicKey
+            })
+          )
+        )
       ),
       catchError(error => of(registerFail({ error })))
     )
@@ -26,7 +31,9 @@ export class RegisterEffects {
       this.actions$.pipe(
         ofType(registerFail),
         switchMap(action => {
-          const errotMessage = action.error.error.message ? action.error.error.message : action.error.statusText;
+          const errotMessage = action.error.error.message
+            ? action.error.error.message
+            : action.error.statusText;
           return of(this.notificationService.showNotification(errotMessage));
         })
       ),
