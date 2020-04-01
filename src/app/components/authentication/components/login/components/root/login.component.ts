@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-import { LoginFacade } from '../../store/facade';
+import { AuthFacade } from 'auth/store';
 
 @Component({
   selector: 'dp-login',
@@ -9,21 +8,24 @@ import { LoginFacade } from '../../store/facade';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  public loginForm: FormGroup;
 
-  constructor(private loginFacade: LoginFacade) {}
+  constructor(private authFacade: AuthFacade) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(21)])
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(21)
+      ])
     });
   }
 
-  onSubmit(): void {
-    const email = this.loginForm.get('email').value;
-    const password = this.loginForm.get('password').value;
+  public onSubmit(): void {
+    const { email, password } = this.loginForm.controls;
 
-    this.loginFacade.login(email, password);
+    this.authFacade.login(email.value, password.value);
   }
 }

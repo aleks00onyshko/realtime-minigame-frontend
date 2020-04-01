@@ -3,15 +3,33 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AuthState } from '../../models';
 
 export const getAuthenticationState = createFeatureSelector<AuthState>('authentication');
-export const getRootState = createSelector(
+
+export const getAccessToken = createSelector(
   getAuthenticationState,
-  (state: AuthState) => state.root
+  (state: AuthState) => state.accessToken
 );
-export const getRegisterState = createSelector(
+
+export const getRefreshToken = createSelector(
   getAuthenticationState,
-  (state: AuthState) => state.register
+  (state: AuthState) => state.refreshToken
 );
-export const getLoginState = createSelector(
+
+export const getIsLoggedIn = createSelector(
   getAuthenticationState,
-  (state: AuthState) => state.login
+  (state: AuthState) => state.isLoggedIn
+);
+
+export const getRefreshing = createSelector(
+  getAuthenticationState,
+  (state: AuthState) => state.refreshing
+);
+
+export const getLoading = createSelector(
+  getAuthenticationState,
+  (state: AuthState) => state.loading
+);
+
+export const getUser = createSelector(
+  getAuthenticationState,
+  (state: AuthState) => state.user
 );

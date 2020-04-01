@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Params, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Params, RouterStateSnapshot, RoutesRecognized } from '@angular/router';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 import { RouterStateSerializer, RouterReducerState, routerReducer } from '@ngrx/router-store';

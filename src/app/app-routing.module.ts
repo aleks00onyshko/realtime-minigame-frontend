@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 
-import { SystemGuard } from './core/services';
+import { SystemGuard } from './components/authentication/core';
 
 const routes: Routes = [
   {
     path: 'authentication',
     loadChildren: () =>
-      import('./components/authentication/authentication.module').then(m => m.AuthenticationModule)
+      import('./components/authentication/authentication.module').then(
+        m => m.AuthenticationModule
+      )
   },
   { path: '', pathMatch: 'full', redirectTo: 'authentication' },
   { path: 'home', component: HomeComponent, canActivate: [SystemGuard] }

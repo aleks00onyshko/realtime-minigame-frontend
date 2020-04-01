@@ -1,17 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
-
 import { RootStoreModule, CustomSerializer } from 'store';
 import { RootComponentsModule, RootComponent } from './components';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './core/services';
+import { TokenInterceptor } from './components/authentication/core';
 
 @NgModule({
   imports: [
@@ -23,8 +21,7 @@ import { TokenInterceptor } from './core/services';
       serializer: CustomSerializer
     }),
     EffectsModule.forRoot([]),
-    environment.production ? [] : StoreDevtoolsModule.instrument(),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    environment.production ? [] : StoreDevtoolsModule.instrument()
   ],
   providers: [
     {

@@ -1,4 +1,7 @@
+import { Tokens } from './token.model';
+import { User } from './user.model';
+
 export interface AuthResponse {
-  token: string;
-  publicKey: string;
+  tokens: Tokens;
+  user: User;
 }

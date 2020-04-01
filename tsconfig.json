@@ -18,7 +18,8 @@
       "store": ["src/app/store"],
       "shared": ["src/app/shared"],
       "models": ["src/app/models"],
-      "auth": ["src/app/components/authentication"]
+      "auth": ["src/app/components/authentication"],
+      "auth/store": ["src/app/components/authentication/store"]
     },
     "types": ["node"]
   }
