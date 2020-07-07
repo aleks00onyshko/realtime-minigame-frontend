@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { AuthFacade } from 'auth/store'
+import { AuthFacade } from 'auth/store';
 
 @Component({
   selector: 'dp-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
-  constructor(private authFacade: AuthFacade) {}
+  constructor(public authFacade: AuthFacade) {}
 
   ngOnInit() {
     this.registerForm = new FormGroup({

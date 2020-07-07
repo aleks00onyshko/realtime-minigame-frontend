@@ -13,16 +13,18 @@ import {
   refreshAccessTokenSuccess,
   refreshAccessTokenFailure,
   checkIfLoggedIn,
-  checkIfLoggedInSuccess
+  checkIfLoggedInSuccess,
+  checkIfLoggedInFailure
 } from '../actions';
 
 export const initialState: AuthState = {
   user: null,
   accessToken: null,
   refreshToken: null,
-  isLoggedIn: false,
+  isLoggedIn: null,
   refreshing: false,
-  loading: false
+  loading: false,
+  error: null
 };
 
 export const authReducer = createReducer(
@@ -41,7 +43,13 @@ export const authReducer = createReducer(
     ...tokens,
     user,
     isLoggedIn: true,
-    loading: false,
+    loading: false
+  })),
+  on(checkIfLoggedInFailure, (state, { error }) => ({
+    ...state,
+    error,
+    isLoggedIn: false,
+    loading: false
   })),
   on(refreshAccessToken, state => ({ ...state, refreshing: true, accessToken: null })),
   on(refreshAccessTokenSuccess, (state, { accessToken }) => ({

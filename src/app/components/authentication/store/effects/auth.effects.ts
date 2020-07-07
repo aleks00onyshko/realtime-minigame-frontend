@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { createEffect, ofType, Actions, OnInitEffects } from '@ngrx/effects';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
+import { createEffect, ofType, Actions } from '@ngrx/effects';
+import { switchMap, map, catchError, tap, concatMapTo } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 
 import * as jwtDecode from 'jwt-decode';
 
+import { environment } from 'src/environments/environment';
 import { NotificationsService } from 'core';
 import { User, DecodedAccessToken, Tokens } from 'models';
 
@@ -17,12 +18,11 @@ import {
   register,
   registerSuccess,
   registerFailure,
+  logout,
   checkIfLoggedIn,
   checkIfLoggedInFailure,
-  checkIfLoggedInSuccess,
-  logout
+  checkIfLoggedInSuccess
 } from '../actions';
-import { environment } from 'src/environments/environment';
 import { AuthFacade } from '../auth.facade';
 
 @Injectable()
@@ -62,7 +62,7 @@ export class AuthEffects {
         tap(({ accessToken, refreshToken }) => {
           const { email, username } = jwtDecode(accessToken) as DecodedAccessToken;
 
-          this.authFacade.setTokens(accessToken, refreshToken);
+          this.authFacade.setTokens({ accessToken, refreshToken });
           this.authFacade.setUser(new User(email, username));
 
           this.router.navigate(['/home']);
@@ -80,6 +80,33 @@ export class AuthEffects {
         })
       ),
     { dispatch: false }
+  );
+
+  checkIfLoggedIn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(checkIfLoggedIn),
+      switchMap(() => {
+        const tokens = this.authFacade.getTokens();
+        const user = this.authFacade.getUser();
+
+        if (tokens && user) {
+          return this.authFacade.validateTokens(user.email, tokens).pipe(
+            map((tokens: Tokens) => {
+              this.authFacade.setTokens(tokens);
+
+              return checkIfLoggedInSuccess({ user, tokens });
+            }),
+            catchError((error: HttpErrorResponse) => of(checkIfLoggedInFailure({ error })))
+          );
+        } else {
+          return of(checkIfLoggedInFailure({ error: new Error('User is not logged in') }));
+        }
+      })
+    )
+  );
+
+  checkIfLoggedInFailure$ = createEffect(() =>
+    this.actions$.pipe(ofType(checkIfLoggedInFailure), concatMapTo([logout()]))
   );
 
   logout$ = createEffect(

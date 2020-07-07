@@ -10,7 +10,7 @@ import { AuthFacade } from 'auth/store';
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
 
-  constructor(private authFacade: AuthFacade) {}
+  constructor(public authFacade: AuthFacade) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

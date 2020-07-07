@@ -6,7 +6,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png);
+  background-image: url('../../assets/images/auth-bg.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -14,27 +14,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.app-header {
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14),
-    0 1px 18px 0 rgba(0, 0, 0, 0.12);
-}
-
 .login-wrapper {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.header-tittle {
-  text-decoration: none;
-  color: #ffffff;
 }
 
 .box {
@@ -110,4 +94,8 @@ body {
 
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
+}
+
+.submit-button {
+  background-color: #222;
 }

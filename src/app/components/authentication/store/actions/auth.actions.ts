@@ -24,19 +24,19 @@ export const registerFailure = createAction(
   props<{ message: string }>()
 );
 
-export const checkIfLoggedIn = createAction(
-  '[Auth] Check If Logged In',
-  props<{ email: string; tokens: Tokens }>()
-);
+export const checkIfLoggedIn = createAction('[Auth] Check If Logged In');
 export const checkIfLoggedInSuccess = createAction(
   '[Auth] Check If Logged In Success',
   props<{ user: User; tokens: Tokens }>()
 );
-export const checkIfLoggedInFailure = createAction('[Auth] Check If Logged In Failure');
+export const checkIfLoggedInFailure = createAction(
+  '[Auth] Check If Logged In Failure',
+  props<{ error: any }>()
+);
 
 export const refreshAccessToken = createAction(
   '[Auth] Refresh token',
-  props<{ email: string; accessToken: string; refreshToken: string }>()
+  props<{ email: string; tokens: Tokens }>()
 );
 export const refreshAccessTokenSuccess = createAction(
   '[Auth] Refresh token success',

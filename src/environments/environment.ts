@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api'
+  apiUrl: 'http://localhost:4500/api'
 };
 
 // Ася сама класна дівчина на селі і у неї сама класна срака і тп тп

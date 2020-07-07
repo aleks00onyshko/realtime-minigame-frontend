@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.authFacade.isLoggedIn$.pipe(
-      map((isLoggedIn: boolean) => {
+      map((isLoggedIn: boolean | null) => {
         if (isLoggedIn) {
           this.router.navigate(['home']);
         }

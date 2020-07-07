@@ -7,4 +7,5 @@ export interface AuthState {
   isLoggedIn: boolean | null;
   refreshing: boolean;
   loading: boolean;
+  error: any;
 }

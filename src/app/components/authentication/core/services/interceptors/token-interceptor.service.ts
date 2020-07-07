@@ -16,8 +16,8 @@ import { User } from 'models';
   providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor {
-  private accessToken: string;
   private user: User;
+  private accessToken: string;
   private refreshToken: string;
 
   constructor(private authFacade: AuthFacade) {
@@ -54,7 +54,10 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.authFacade.refreshAccessToken(this.user.email, this.accessToken, this.refreshToken);
+    this.authFacade.refreshAccessToken(this.user.email, {
+      accessToken: this.accessToken,
+      refreshToken: this.refreshToken
+    });
 
     return this.authFacade.accessToken$.pipe(
       filter((token: string | null) => token !== null),
