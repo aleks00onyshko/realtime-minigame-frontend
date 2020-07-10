@@ -27,7 +27,7 @@ export const initialState: AuthState = {
   error: null
 };
 
-export const authReducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(login, register, state => ({ ...state, loading: true })),
   on(loginSuccess, registerSuccess, (state, { accessToken, refreshToken }) => ({
@@ -60,3 +60,7 @@ export const authReducer = createReducer(
   on(refreshAccessTokenFailure, state => ({ ...state, refreshing: false, isLoggedIn: false })),
   on(logout, () => ({ ...initialState }))
 );
+
+export function authReducer(state: AuthState | undefined, action: Action) {
+  return reducer(state, action);
+}
