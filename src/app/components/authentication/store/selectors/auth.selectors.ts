@@ -29,7 +29,7 @@ export const getLoading = createSelector(
   (state: AuthState) => state.loading
 );
 
-export const getUser = createSelector(
+export const getUserInfo = createSelector(
   getAuthenticationState,
-  (state: AuthState) => state.user
+  (state: AuthState) => state.userInfo
 );

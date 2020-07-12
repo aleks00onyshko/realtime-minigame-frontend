@@ -1,7 +1,7 @@
-import { User } from 'models';
+import { UserInfo } from '../user';
 
 export interface AuthState {
-  user: User | null;
+  userInfo: UserInfo | null;
   accessToken: string | null;
   refreshToken: string | null;
   isLoggedIn: boolean | null;

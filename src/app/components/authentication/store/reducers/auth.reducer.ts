@@ -18,7 +18,7 @@ import {
 } from '../actions';
 
 export const initialState: AuthState = {
-  user: null,
+  userInfo: null,
   accessToken: null,
   refreshToken: null,
   isLoggedIn: null,
@@ -30,18 +30,18 @@ export const initialState: AuthState = {
 const reducer = createReducer(
   initialState,
   on(login, register, state => ({ ...state, loading: true })),
-  on(loginSuccess, registerSuccess, (state, { accessToken, refreshToken }) => ({
+  on(loginSuccess, registerSuccess, (state, { tokens, userInfo }) => ({
     ...state,
-    accessToken,
-    refreshToken,
+    ...tokens,
+    userInfo,
     isLoggedIn: true
   })),
   on(loginFailure, registerFailure, state => ({ ...state, loading: false })),
   on(checkIfLoggedIn, state => ({ ...state, loading: true })),
-  on(checkIfLoggedInSuccess, (state, { user, tokens }) => ({
+  on(checkIfLoggedInSuccess, (state, { userInfo, tokens }) => ({
     ...state,
     ...tokens,
-    user,
+    userInfo,
     isLoggedIn: true,
     loading: false
   })),
@@ -52,9 +52,9 @@ const reducer = createReducer(
     loading: false
   })),
   on(refreshAccessToken, state => ({ ...state, refreshing: true, accessToken: null })),
-  on(refreshAccessTokenSuccess, (state, { accessToken }) => ({
+  on(refreshAccessTokenSuccess, (state, { tokens }) => ({
     ...state,
-    accessToken,
+    ...tokens,
     refreshing: false
   })),
   on(refreshAccessTokenFailure, state => ({ ...state, refreshing: false, isLoggedIn: false })),

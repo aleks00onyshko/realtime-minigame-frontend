@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { User, Tokens } from 'models';
+import { UserInfo, Tokens } from 'auth/models';
 
 export const login = createAction(
   '[Auth] Login',
@@ -7,9 +7,9 @@ export const login = createAction(
 );
 export const loginSuccess = createAction(
   '[Auth] Login Success',
-  props<{ accessToken: string; refreshToken: string }>()
+  props<{ tokens: Tokens; userInfo: UserInfo }>()
 );
-export const loginFailure = createAction('[Auth] Login Failure', props<{ message: string }>());
+export const loginFailure = createAction('[Auth] Login Failure', props<{ error: string }>());
 
 export const register = createAction(
   '[Auth] Register',
@@ -17,21 +17,21 @@ export const register = createAction(
 );
 export const registerSuccess = createAction(
   '[Auth] Register Success',
-  props<{ accessToken: string; refreshToken: string }>()
+  props<{ tokens: Tokens; userInfo: UserInfo }>()
 );
 export const registerFailure = createAction(
   '[Auth] Register Failure',
-  props<{ message: string }>()
+  props<{ error: string }>()
 );
 
 export const checkIfLoggedIn = createAction('[Auth] Check If Logged In');
 export const checkIfLoggedInSuccess = createAction(
   '[Auth] Check If Logged In Success',
-  props<{ user: User; tokens: Tokens }>()
+  props<{ userInfo: UserInfo; tokens: Tokens }>()
 );
 export const checkIfLoggedInFailure = createAction(
   '[Auth] Check If Logged In Failure',
-  props<{ error: any }>()
+  props<{ error: string }>()
 );
 
 export const refreshAccessToken = createAction(
@@ -40,11 +40,11 @@ export const refreshAccessToken = createAction(
 );
 export const refreshAccessTokenSuccess = createAction(
   '[Auth] Refresh token success',
-  props<{ accessToken: string }>()
+  props<{ tokens: Tokens }>()
 );
 export const refreshAccessTokenFailure = createAction(
   '[Auth] Refresh token Failure',
-  props<{ message: string }>()
+  props<{ error: string }>()
 );
 
 export const logout = createAction('[Auth] Logout');

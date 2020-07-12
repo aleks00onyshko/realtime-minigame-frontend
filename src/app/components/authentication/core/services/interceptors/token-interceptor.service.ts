@@ -10,20 +10,20 @@ import { catchError, filter, take, switchMap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
 import { AuthFacade } from 'auth/store';
-import { User } from 'models';
+import { UserInfo } from 'auth/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor {
-  private user: User;
+  private userInfo: UserInfo;
   private accessToken: string;
   private refreshToken: string;
 
   constructor(private authFacade: AuthFacade) {
     this.authFacade.accessToken$.subscribe((token: string) => (this.accessToken = token));
     this.authFacade.refreshToken$.subscribe((token: string) => (this.refreshToken = token));
-    this.authFacade.user$.subscribe((user: User) => (this.user = user));
+    this.authFacade.userInfo$.subscribe((userInfo: UserInfo) => (this.userInfo = userInfo));
   }
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -54,7 +54,7 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.authFacade.refreshAccessToken(this.user.email, {
+    this.authFacade.refreshAccessToken(this.userInfo.email, {
       accessToken: this.accessToken,
       refreshToken: this.refreshToken
     });

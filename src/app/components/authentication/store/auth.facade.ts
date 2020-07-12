@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
-import { User, Tokens } from 'models';
+import { UserInfo, Tokens } from 'auth/models';
 import { AuthState } from '../models';
 import {
   getLoading,
@@ -12,7 +11,7 @@ import {
   getAccessToken,
   getRefreshToken,
   getRefreshing,
-  getUser
+  getUserInfo
 } from './selectors';
 import {
   login,
@@ -25,7 +24,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
-  public user$: Observable<User> = this.store.select(getUser);
+  public userInfo$: Observable<UserInfo> = this.store.select(getUserInfo);
   public isLoggedIn$: Observable<boolean> = this.store.select(getIsLoggedIn);
   public accessToken$: Observable<string> = this.store.select(getAccessToken);
   public refreshToken$: Observable<string> = this.store.select(getRefreshToken);
@@ -50,19 +49,12 @@ export class AuthFacade {
     this.store.dispatch(checkIfLoggedIn());
   }
 
-  public checkIfLoggedInSuccess(user: User, tokens: Tokens): void {
-    this.store.dispatch(checkIfLoggedInSuccess({ user, tokens }));
+  public checkIfLoggedInSuccess(userInfo: UserInfo, tokens: Tokens): void {
+    this.store.dispatch(checkIfLoggedInSuccess({ userInfo, tokens }));
   }
 
   public logout(): void {
     this.store.dispatch(logout());
-  }
-
-  public validateTokens(email: string, tokens: Tokens): Observable<Tokens> {
-    return this.http.post<Tokens>(`${environment.apiUrl}/users/token`, {
-      email,
-      ...tokens
-    });
   }
 
   public setTokens(tokens: Tokens): void {
@@ -77,15 +69,15 @@ export class AuthFacade {
     return accessToken && refreshToken ? { accessToken, refreshToken } : null;
   }
 
-  public setUser(user: User): void {
-    localStorage.setItem('email', user.email);
-    localStorage.setItem('username', user.username);
+  public setUserInfo(userInfo: UserInfo): void {
+    localStorage.setItem('email', userInfo.email);
+    localStorage.setItem('username', userInfo.username);
   }
 
-  public getUser(): User {
+  public getUserInfo(): UserInfo {
     const email = localStorage.getItem('email');
     const username = localStorage.getItem('username');
 
-    return email && username ? new User(email, username) : null;
+    return email && username ? { email, username } : null;
   }
 }
