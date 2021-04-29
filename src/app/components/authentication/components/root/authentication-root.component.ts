@@ -8,7 +8,7 @@ import { AuthFacade } from 'auth/store';
   template: `
     <mat-toolbar class="app-header">
       <div>
-        <span class="header-tittle">PackmanLab.io</span>
+        <span class="header-tittle">Bravo web tool</span>
       </div>
       <span class="nav-tool-items">
         <a mat-button routerLink="login" routerLinkActive="active">Log in</a>

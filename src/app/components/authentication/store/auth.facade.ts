@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { HttpClient } from '@angular/common/http';
 
 import { UserInfo, Tokens } from 'auth/models';
 import { AuthState } from '../models';
@@ -31,7 +30,7 @@ export class AuthFacade {
   public loading$: Observable<boolean> = this.store.select(getLoading);
   public refreshing$: Observable<boolean> = this.store.select(getRefreshing);
 
-  constructor(private store: Store<AuthState>, private http: HttpClient) {}
+  constructor(private store: Store<AuthState>) {}
 
   public register(email: string, username: string, password: string): void {
     this.store.dispatch(register({ email, username, password }));

@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginComponent, LoginModule } from './components/login';
-import { RegisterComponent, RegisterModule } from './components/register';
+import { LoginComponent } from './components/login';
+import { RegisterComponent } from './components/register';
 import { AuthenticationRootComponent } from './components/root/authentication-root.component';
 import { AuthGuard } from './core';
 
@@ -21,12 +21,7 @@ const authenticationRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    LoginModule,
-    RegisterModule,
-    RouterModule.forChild(authenticationRoutes)
-  ],
+  imports: [CommonModule, RouterModule.forChild(authenticationRoutes)],
   exports: [RouterModule]
 })
 export class AuthenticationRoutingModule {}

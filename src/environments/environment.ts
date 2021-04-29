@@ -7,8 +7,6 @@ export const environment = {
   apiUrl: 'http://localhost:4500/api'
 };
 
-// Ася сама класна дівчина на селі і у неї сама класна срака і тп тп
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
