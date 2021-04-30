@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login';
 import { RegisterComponent } from './components/register';
 import { AuthenticationRootComponent } from './components/root/authentication-root.component';
-import { AuthGuard } from './core';
+import { AuthenticationCoreModule, AuthGuard } from './core';
 
 const authenticationRoutes: Routes = [
   {
@@ -21,7 +21,11 @@ const authenticationRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(authenticationRoutes)],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(authenticationRoutes),
+    AuthenticationCoreModule
+  ],
   exports: [RouterModule]
 })
 export class AuthenticationRoutingModule {}

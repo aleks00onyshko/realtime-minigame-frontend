@@ -12,9 +12,7 @@ import { Observable, throwError } from 'rxjs';
 import { AuthFacade } from 'auth/store';
 import { UserInfo } from 'auth/models';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private userInfo: UserInfo;
   private accessToken: string;

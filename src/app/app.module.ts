@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { RootStoreModule, CustomSerializer } from 'store';
 import { RootComponentsModule, RootComponent } from './components';
-import { TokenInterceptor } from './components/authentication/core';
+import { AuthenticationCoreModule, TokenInterceptor } from './components/authentication/core';
 
 @NgModule({
   imports: [
@@ -21,7 +21,8 @@ import { TokenInterceptor } from './components/authentication/core';
       serializer: CustomSerializer
     }),
     EffectsModule.forRoot([]),
-    environment.production ? [] : StoreDevtoolsModule.instrument()
+    environment.production ? [] : StoreDevtoolsModule.instrument(),
+    AuthenticationCoreModule
   ],
   providers: [
     {

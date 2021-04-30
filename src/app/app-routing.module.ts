@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 
-import { SystemGuard } from './components/authentication/core';
+import { AuthenticationCoreModule, SystemGuard } from './components/authentication/core';
 
 const routes: Routes = [
   {
@@ -17,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), AuthenticationCoreModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

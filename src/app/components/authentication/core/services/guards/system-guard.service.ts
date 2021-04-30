@@ -5,7 +5,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { AuthFacade } from 'auth/store';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class SystemGuard implements CanActivate {
   constructor(public authFacade: AuthFacade) {}
 
