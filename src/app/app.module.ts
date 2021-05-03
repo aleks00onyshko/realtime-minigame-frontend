@@ -20,7 +20,6 @@ import { AuthenticationCoreModule, TokenInterceptor } from './components/authent
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer
     }),
-    EffectsModule.forRoot([]),
     environment.production ? [] : StoreDevtoolsModule.instrument(),
     AuthenticationCoreModule
   ],
