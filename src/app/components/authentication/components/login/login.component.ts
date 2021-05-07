@@ -8,24 +8,17 @@ import { AuthFacade } from 'auth/store';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public loginForm: FormGroup;
+  public emailControl = new FormControl(null, [Validators.required, Validators.email]);
 
-  constructor(public authFacade: AuthFacade) {}
-
-  ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(21)
-      ])
-    });
+  constructor(public authFacade: AuthFacade) {
+    // this.emailControl.touched
+    // this.emailControl.valid
+    // this.emailControl.invalid
   }
 
-  public onSubmit(): void {
-    const { email, password } = this.loginForm.controls;
+  ngOnInit(): void {}
 
-    this.authFacade.login(email.value, password.value);
+  public onSubmit(): void {
+    const email = this.emailControl.value;
   }
 }

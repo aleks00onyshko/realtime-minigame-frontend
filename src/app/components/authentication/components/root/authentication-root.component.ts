@@ -1,30 +1,24 @@
 import { Component } from '@angular/core';
-
 import { AuthFacade } from 'auth/store';
 
 @Component({
   selector: 'dp-authentication-master',
   styleUrls: ['./authentication-root.component.scss'],
   template: `
-    <mat-toolbar class="app-header">
-      <div>
-        <span class="header-tittle">Bravo web tool</span>
+    <div class="background-wrapper">
+      <div class="bravo-logo">
+        <img src="assets/bravo-logo.svg" alt="logo" />
       </div>
-      <span class="nav-tool-items">
-        <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-        <a mat-button routerLink="register" routerLinkActive="active">Register</a>
-      </span>
-    </mat-toolbar>
+      <ng-container *ngIf="!(authFacade.loading$ | async); else spinner">
+        <router-outlet></router-outlet>
+      </ng-container>
 
-    <ng-container *ngIf="!(authFacade.loading$ | async); else spinner">
-      <router-outlet></router-outlet>
-    </ng-container>
-
-    <ng-template #spinner>
-      <div class="spinner">
-        <mat-spinner></mat-spinner>
-      </div>
-    </ng-template>
+      <ng-template #spinner>
+        <div class="spinner">
+          <mat-spinner></mat-spinner>
+        </div>
+      </ng-template>
+    </div>
   `
 })
 export class AuthenticationRootComponent {

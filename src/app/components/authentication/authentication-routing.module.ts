@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './components/login';
-import { RegisterComponent } from './components/register';
 import { AuthenticationRootComponent } from './components/root/authentication-root.component';
 import { AuthenticationCoreModule, AuthGuard } from './core';
 
@@ -13,7 +12,6 @@ const authenticationRoutes: Routes = [
     component: AuthenticationRootComponent,
     children: [
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
     ],
     canActivate: [AuthGuard]

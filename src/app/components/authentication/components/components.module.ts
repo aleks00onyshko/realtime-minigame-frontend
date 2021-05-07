@@ -3,10 +3,9 @@ import { RouterModule } from '@angular/router';
 
 import { AppSharedModule } from 'shared';
 import { LoginComponent } from './login';
-import { RegisterComponent } from './register';
 import { AuthenticationRootComponent } from './root';
 
-const COMPONENTS = [AuthenticationRootComponent, RegisterComponent, LoginComponent];
+const COMPONENTS = [AuthenticationRootComponent, LoginComponent];
 
 @NgModule({
   imports: [RouterModule, AppSharedModule],

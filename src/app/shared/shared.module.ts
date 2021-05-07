@@ -24,7 +24,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-const COMMON_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule];
+const COMMON_MODULES = [
+  CommonModule,
+  FormsModule,
+  ReactiveFormsModule,
+  BrowserAnimationsModule
+];
 
 const MAT_MODULES = [
   MatButtonModule,

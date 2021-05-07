@@ -1,4 +1,67 @@
+.login-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 70px 48px 78px;
+
+  background: #ffffff;
+  height: 400px;
+  width: 440px;
+
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.title-card {
+  text-align: center;
+
+  color: #000000;
+
+  margin-bottom: 26px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.email-input {
+  width: 100%;
+  font-size: 14px;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+}
+
 .submit-button {
-  background-color: #222;
-  color: #fff;
+  background-color: #1672ec;
+  color: #c5dcfa;
+
+  width: 344px;
+  height: 48px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.submit-button[disabled] {
+  opacity: 0.6;
+  color: #c5dcfa !important;
+}
+
+.submit-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.success-icon {
+  color: green;
+}
+
+.error-icon {
+  color: red;
 }
