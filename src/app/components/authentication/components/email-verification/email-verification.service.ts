@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AsyncValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import {
   map,
@@ -8,8 +9,7 @@ import {
   debounceTime,
   distinctUntilChanged,
   switchMap,
-  first,
-  startWith
+  first
 } from 'rxjs/operators';
 
 interface EmailExistResponse {

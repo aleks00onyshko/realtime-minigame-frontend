@@ -28,7 +28,7 @@
       type="submit"
       class="submit-button"
       color="accent"
-      [disabled]="emailControl.invalid && emailControl.status === 'PENDING'"
+      [disabled]="emailControl.invalid || emailControl.status === 'PENDING'"
     >
       Log In
     </button>
