@@ -15,7 +15,6 @@ import {
 interface EmailExistResponse {
   message: string;
 }
-
 @Injectable()
 export class EmailVerificationService {
   public emailInvalidError = 'emailInvalid';
